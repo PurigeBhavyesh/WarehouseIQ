@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <h1>Creation Account</h1>
+        <p>Register to get started</p>
+    </div>
+    <div>
+        <form method="POST" action="/register">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" required/>
+            <br><br>
+            <label for="email">Email</label>
+            <input type="text" id="email" name="email" required/><br><br>
+            <label>password</label>
+            <input type="password" name="password" required>
+            <br><br>
+            <button type="submit">regiester</button>
+        </form>
+    </div>
+    <p>
+        Already have an account?
+        <a href="/login">Login</a>
+    </p>
+</body>
+</html>

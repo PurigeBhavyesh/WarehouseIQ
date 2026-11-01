@@ -1,0 +1,31 @@
+﻿# Environment variables and secrets
+.env
+.env.*
+
+# Allow the safe example configuration
+!.env.example
+
+# Python virtual environments
+myenv/
+venv/
+.venv/
+
+# Python generated files
+__pycache__/
+*.py[cod]
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Editors and operating system
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Local database files and logs
+*.sqlite3
+*.db
+*.log
