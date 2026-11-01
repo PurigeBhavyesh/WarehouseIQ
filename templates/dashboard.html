@@ -6,8 +6,12 @@
     <title>Document</title>
 </head>
 <body>
-    <h1> Welcom {{username}}</h1>
-    <p>You are logged in</p>
-    <a href="/login">logout</a>
+   <h1>Welcome {{ username }}</h1>
+
+    <p>You are logged in.</p>
+
+    <form action="{{ url_for('logout') }}" method="POST">
+    <button type="submit">Logout</button>
+</form>
 </body>
 </html>
