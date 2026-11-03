@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Products | WarehouseIQ</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <header>
+        <h1>WarehouseIQ</h1>
+
+        <nav aria-label="Main navigation">
+            <a href="{{ url_for('dashboard') }}">Dashboard</a>
+            <a href="{{ url_for('add_product') }}">Add Product</a>
+
+            <form method="POST"
+                  action="{{ url_for('logout') }}"
+                  class="logout-form">
+                <button type="submit" class="logout-button">
+                    Logout
+                </button>
+            </form>
+        </nav>
+    </header>
+
+    <main>
+        <div class="page-heading">
+            <h2>Product Management</h2>
+            <p>View, edit, and manage your inventory.</p>
+        </div>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% for category, message in messages %}
+                <p class="{{ category }}">{{ message }}</p>
+            {% endfor %}
+        {% endwith %}
+
+        {% if products %}
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>SKU</th>
+                            <th>Name</th>
+                            <th>Category</th>
+                            <th>Purchase Price</th>
+                            <th>Selling Price</th>
+                            <th>Stock</th>
+                            <th>Reorder Level</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for product in products %}
+                            <tr>
+                                <td>{{ product.sku }}</td>
+                                <td>{{ product.name }}</td>
+                                <td>{{ product.category }}</td>
+
+                                <td>
+                                    ₹{{ "%.2f"|format(product.purchase_price) }}
+                                </td>
+
+                                <td>
+                                    ₹{{ "%.2f"|format(product.selling_price) }}
+                                </td>
+
+                                <td>
+                                    {{ product.quantity }} {{ product.unit }}
+                                </td>
+
+                                <td>{{ product.reorder_level }}</td>
+
+                                <td class="product-actions">
+                                    <a
+                                        href="{{ url_for('edit_product', product_id=product.id) }}"
+                                        class="edit-link"
+                                    >
+                                        Edit
+                                    </a>
+
+                                    <form
+                                        action="{{ url_for('deactivate_product', product_id=product.id) }}"
+                                        method="POST"
+                                        class="deactivate-form"
+                                        onsubmit="return confirm('Deactivate this product?')"
+                                    >
+                                        <button
+                                            type="submit"
+                                            class="deactivate-button"
+                                        >
+                                            Deactivate
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <p>No products found. Add your first product.</p>
+        {% endif %}
+    </main>
+
+</body>
+</html>

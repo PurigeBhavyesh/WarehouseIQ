@@ -1,17 +1,46 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Dashboard | WarehouseIQ</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-   <h1>Welcome {{ username }}</h1>
 
-    <p>You are logged in.</p>
+    {% include '_header.html' %}
 
-    <form action="{{ url_for('logout') }}" method="POST">
-    <button type="submit">Logout</button>
-</form>
+    <main>
+        <section class="welcome">
+            <h2>Welcome {{ username }}</h2>
+            <p>Here is an overview of your inventory.</p>
+        </section>
+
+        <section class="stats">
+            <div class="card">
+                <h3>Active Products</h3>
+                <p class="stat-number">{{ product_count }}</p>
+            </div>
+
+            <div class="card">
+                <h3>Low Stock Products</h3>
+                <p class="stat-number">{{ low_stock_count }}</p>
+            </div>
+        </section>
+
+        <section class="actions">
+            <a href="{{ url_for('products') }}" class="action-link">
+                View Products
+            </a>
+
+            <a href="{{ url_for('add_product') }}" class="action-link">
+                Add Product
+            </a>
+        </section>
+    </main>
+
 </body>
 </html>

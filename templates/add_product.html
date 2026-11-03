@@ -1,0 +1,60 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Product | WarehouseIQ</title>
+     <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+   {% include '_header.html' %}
+    <h1>Add Product</h1>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% for category, message in messages %}
+            <p class="{{ category }}">{{ message }}</p>
+        {% endfor %}
+    {% endwith %}
+
+    <form method="POST">
+        <label>Stock Keeping Unit</label>
+        <input name="sku" maxlength="50" required>
+
+        <label>Product Name</label>
+        <input name="name" maxlength="120" required>
+
+        <label>Category</label>
+        <input name="category" maxlength="80" required>
+
+        <label>Unit</label>
+        <select name="unit" required>
+            <option value="piece">Piece</option>
+            <option value="box">Box</option>
+            <option value="kg">Kilogram</option>
+            <option value="litre">Litre</option>
+        </select>
+
+        <label>Purchase Price (₹)</label>
+        <input name="purchase_price" type="number" min="0"
+               step="0.01" max="99999999.99" required>
+
+        <label>Selling Price (₹)</label>
+        <input name="selling_price" type="number" min="0"
+               step="0.01" max="99999999.99" required>
+
+        <label>Initial Quantity</label>
+        <input name="quantity" type="number" min="0"
+               step="1" value="0" required>
+
+        <label>Reorder Level</label>
+        <input name="reorder_level" type="number" min="0"
+               step="1" value="10" required>
+
+        <button type="submit">Save Product</button>
+    </form>
+
+    <a href="{{ url_for('products') }}">Back to Products</a>
+</body>
+</html>

@@ -1,31 +1,65 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+
+    <title>Register | WarehouseIQ</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <div>
-        <h1>Creation Account</h1>
-        <p>Register to get started</p>
-    </div>
-    <div>
-        <form method="POST" action="/register">
-            <label for="username">Username</label>
-            <input type="text" id="username" name="username" required/>
-            <br><br>
-            <label for="email">Email</label>
-            <input type="text" id="email" name="email" required/><br><br>
-            <label>password</label>
-            <input type="password" name="password" required>
-            <br><br>
-            <button type="submit">regiester</button>
-        </form>
-    </div>
+
+    <h1>Create Account</h1>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% for category, message in messages %}
+            <p class="{{ category }}">{{ message }}</p>
+        {% endfor %}
+    {% endwith %}
+
+    <form method="POST" action="{{ url_for('register') }}">
+
+        <label for="username">Username</label>
+        <input
+            type="text"
+            id="username"
+            name="username"
+            maxlength="80"
+            autocomplete="username"
+            required
+        >
+
+        <label for="email">Email</label>
+        <input
+            type="email"
+            id="email"
+            name="email"
+            maxlength="120"
+            autocomplete="email"
+            required
+        >
+
+        <label for="password">Password</label>
+        <input
+            type="password"
+            id="password"
+            name="password"
+            minlength="8"
+            autocomplete="new-password"
+            required
+        >
+
+        <button type="submit">Create Account</button>
+
+    </form>
+
     <p>
         Already have an account?
-        <a href="/login">Login</a>
+        <a href="{{ url_for('login') }}">Login</a>
     </p>
+
 </body>
 </html>
